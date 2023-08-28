@@ -16,5 +16,5 @@ Curso iniciado em 10 de agosto de 2023.
 
 * Projeto Expenses é uma aplicativo destinado ao controle de gastos financeiros, permitindo o cadastro de valores gastos com o nome desse gasto.
     - **Iniciado em**: 21/08/2023
-    - **Completado em**: NN/08/2023
-    - **Comandos presentes nesse projeto**:
+    - **Completado em**: 27/08/2023
+    - **Comandos presentes nesse projeto**: Sem novos comandos.
