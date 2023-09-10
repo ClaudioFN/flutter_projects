@@ -14,7 +14,14 @@ Curso iniciado em 10 de agosto de 2023.
 
 > **Projeto 2 - Expenses**
 
-* Projeto Expenses é uma aplicativo destinado ao controle de gastos financeiros, permitindo o cadastro de valores gastos com o nome desse gasto.
+* Projeto Expenses é um aplicativo destinado ao controle de gastos financeiros, permitindo o cadastro de valores gastos com o nome desse gasto.
     - **Iniciado em**: 21/08/2023
     - **Completado em**: 27/08/2023
+    - **Comandos presentes nesse projeto**: Sem novos comandos.
+
+> **Projeto 3 - Food Menu**
+
+* Projeto Food Menu é um aplicativo para listar comidas separadas por categorias e filtraveis em área específica do aplicativo e apresentar o que o usuário selecionar, além de permitir favoritar refeições.
+    - **Iniciado em**: 04/09/2023
+    - **Completado em**: 10/09/2023
     - **Comandos presentes nesse projeto**: Sem novos comandos.
