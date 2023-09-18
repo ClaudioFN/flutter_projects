@@ -1,0 +1,190 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:shop/models/product.dart';
+
+class ProductFormPage extends StatefulWidget {
+  const ProductFormPage({super.key});
+
+  @override
+  State<ProductFormPage> createState() => _ProductFormPageState();
+}
+// https://www.petz.com.br/blog/wp-content/uploads/2019/05/cachorro-independente-1.jpg
+class _ProductFormPageState extends State<ProductFormPage> {
+  final _priceFocus = FocusNode();
+  final _descriptionFocus = FocusNode();
+  final _imageUrlFocus = FocusNode();
+  final _imageUrlController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _formData = Map<String, Object>();
+
+  @override
+  void initState() {
+    super.initState();
+    _imageUrlFocus.addListener(updateImage);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _priceFocus.dispose();
+    _descriptionFocus.dispose();
+
+    _imageUrlFocus.removeListener(updateImage);
+    _imageUrlFocus.dispose();
+  }
+
+  void updateImage() {
+    setState(() {});
+  }
+
+  bool isValidImageUrl(String url) {
+    bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
+    bool endsWithFile = url.toLowerCase().endsWith('.png') ||
+        url.toLowerCase().endsWith('.jpg') ||
+        url.toLowerCase().endsWith('.jpeg');
+    return isValidUrl && endsWithFile;
+  }
+
+  void _submitForm() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+
+    if (!isValid) {
+      return;
+    }
+
+    _formKey.currentState?.save();
+
+    final newProduct = Product(
+      id: Random().nextDouble().toString(),
+      title: _formData['title'] as String,
+      description: _formData['description'] as String,
+      price: _formData['price'] as double,
+      imageUrl: _formData['imageUrl'] as String,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Formulário do Produto'),
+        actions: [
+          IconButton(onPressed: _submitForm, icon: Icon(Icons.save)),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Nome'),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(_priceFocus);
+                },
+                onSaved: (title) => _formData['title'] = title ?? '',
+                validator: (_title) {
+                  final title = _title ?? '';
+
+                  if (title.trim().isEmpty) {
+                    return 'Nome é Obrigatório!';
+                  } else if (title.trim().length < 3) {
+                    return 'Nome deve ter ao menos 3 caracteres!';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Preço'),
+                textInputAction: TextInputAction.next,
+                focusNode: _priceFocus,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(_descriptionFocus);
+                },
+                onSaved: (price) =>
+                    _formData['price'] = double.parse(price ?? '0.0'),
+                validator: (_price) {
+                  final priceString = _price ?? '-1';
+                  final price = double.tryParse(priceString) ?? -1;
+
+                  if (price < 1) {
+                    return 'Valor tem que ser maior que 1,00!';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Descrição'),
+                textInputAction: TextInputAction.next,
+                focusNode: _descriptionFocus,
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                onSaved: (description) =>
+                    _formData['description'] = description ?? '',
+                validator: (_description) {
+                  final description = _description ?? '';
+
+                  if (description.trim().isEmpty) {
+                    return 'Descrição é Obrigatório!';
+                  } else if (description.trim().length < 10) {
+                    return 'Descrição deve ter ao menos 10 caracteres!';
+                  }
+                  return null;
+                },
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: 'URL da Imagem'),
+                      focusNode: _imageUrlFocus,
+                      controller: _imageUrlController,
+                      keyboardType: TextInputType.url,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _submitForm(),
+                      onSaved: (imageUrl) =>
+                          _formData['imageUrl'] = imageUrl ?? '',
+                      validator: (_imageUrl) {
+                        final imageUrl = _imageUrl ?? '';
+                        if (!isValidImageUrl(imageUrl)){
+                          return 'Informe uma URL de imagem válida!';
+                        }
+                        return null;
+                      }, 
+                    ),
+                  ),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: const EdgeInsets.only(
+                      top: 10,
+                      left: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                        width: 1,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: _imageUrlController.text.isEmpty
+                        ? Text('Informe a URL')
+                        : FittedBox(
+                            child: Image.network(_imageUrlController.text),
+                            fit: BoxFit.cover,
+                          ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
