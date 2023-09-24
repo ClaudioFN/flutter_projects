@@ -28,7 +28,8 @@ Curso iniciado em 10 de agosto de 2023.
 
 > **Projeto 4 - Shop**
 
-* Projeto Shop é um aplicativo para listar opções de compra de produtos pré listados e a inclusão de novos produtos com seus respectivos nomes, valores, descrições e imagens ilustrativas.
+* Projeto Shop é um aplicativo para listar opções de compra de produtos pré listados e a inclusão de novos produtos com seus respectivos nomes, valores, descrições e imagens ilustrativas. 
+***Esse aplicativo foi utilizado de base para tratar de conexão de ao Firebase e processos de autenticação.***
     - **Iniciado em**: 11/09/2023
     - **Completado em**: -
     - **Comandos presentes nesse projeto**: Sem novos comandos.
