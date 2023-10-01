@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/models/auth.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -7,6 +8,11 @@ import 'package:shop/utils/app_routes.dart';
 class ProductGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(
+      context,
+      listen: false,
+    );
+
     final product = Provider.of<Product>(
       context,
       listen: false,
@@ -27,10 +33,18 @@ class ProductGridItem extends StatelessWidget {
               arguments: product,
             );
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: product.id,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/images/product-placeholder.png'),
+              image: NetworkImage(product.imageUrl),
+              fit: BoxFit.cover,
+            ),
           ),
+          //child: Image.network(
+          //  product.imageUrl,
+          //  fit: BoxFit.cover,
+          //),
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
@@ -38,7 +52,10 @@ class ProductGridItem extends StatelessWidget {
             builder: (ctx, product, _) => IconButton(
               icon: Icon(
                   product.isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () => {product.toggleFavorite()},
+              onPressed: () {
+                print('onPressed222');
+                product.toggleFavorite(auth.token ?? '', auth.userId ?? '');
+              },
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
@@ -49,9 +66,12 @@ class ProductGridItem extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Produto Incluído no Carrinho!'),
                 duration: Duration(seconds: 3),
-                action: SnackBarAction(label: 'DESFAZER', textColor: Colors.red, onPressed: () {
-                  cart.removeSingleItem(product.id);
-                }),
+                action: SnackBarAction(
+                    label: 'DESFAZER',
+                    textColor: Colors.red,
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    }),
               ));
               cart.addItem(product);
             },

@@ -1,7 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
+import 'package:shop/models/product_list.dart';
 
 class ProductFormPage extends StatefulWidget {
   const ProductFormPage({super.key});
@@ -9,6 +9,7 @@ class ProductFormPage extends StatefulWidget {
   @override
   State<ProductFormPage> createState() => _ProductFormPageState();
 }
+
 // https://www.petz.com.br/blog/wp-content/uploads/2019/05/cachorro-independente-1.jpg
 class _ProductFormPageState extends State<ProductFormPage> {
   final _priceFocus = FocusNode();
@@ -17,11 +18,32 @@ class _ProductFormPageState extends State<ProductFormPage> {
   final _imageUrlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _imageUrlFocus.addListener(updateImage);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_formData.isEmpty) {
+      final arg = ModalRoute.of(context)?.settings.arguments;
+      if (arg != null) {
+        final product = arg as Product;
+
+        _formData['id'] = product.id;
+        _formData['title'] = product.title;
+        _formData['price'] = product.price;
+        _formData['description'] = product.description;
+        _formData['imageUrl'] = product.imageUrl;
+
+        _imageUrlController.text = product.imageUrl;
+      }
+    }
   }
 
   @override
@@ -46,7 +68,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
     return isValidUrl && endsWithFile;
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (!isValid) {
@@ -55,13 +77,26 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
     _formKey.currentState?.save();
 
-    final newProduct = Product(
-      id: Random().nextDouble().toString(),
-      title: _formData['title'] as String,
-      description: _formData['description'] as String,
-      price: _formData['price'] as double,
-      imageUrl: _formData['imageUrl'] as String,
-    );
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await Provider.of<ProductList>(context, listen: false).saveProduct(_formData);
+      Navigator.of(context).pop();
+    } catch(error) {
+      await showDialog<void>(context: context, builder: (ctx) => AlertDialog(
+              title: Text('Ocorreu um erro!'),
+              content: Text('Ocorreu um erro ao salvar o Produto: ${error.toString()}'),
+              actions: [
+                TextButton(onPressed: () => Navigator.of(context).pop(), child: Text('OK'))
+              ],
+            ));
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -73,13 +108,14 @@ class _ProductFormPageState extends State<ProductFormPage> {
           IconButton(onPressed: _submitForm, icon: Icon(Icons.save)),
         ],
       ),
-      body: Padding(
+      body: _isLoading ? Center(child: CircularProgressIndicator(),) : Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               TextFormField(
+                initialValue: _formData['title']?.toString(),
                 decoration: InputDecoration(labelText: 'Nome'),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
@@ -98,6 +134,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 },
               ),
               TextFormField(
+                initialValue: _formData['price']?.toString(),
                 decoration: InputDecoration(labelText: 'Preço'),
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocus,
@@ -118,6 +155,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 },
               ),
               TextFormField(
+                initialValue: _formData['description']?.toString(),
                 decoration: InputDecoration(labelText: 'Descrição'),
                 textInputAction: TextInputAction.next,
                 focusNode: _descriptionFocus,
@@ -151,11 +189,11 @@ class _ProductFormPageState extends State<ProductFormPage> {
                           _formData['imageUrl'] = imageUrl ?? '',
                       validator: (_imageUrl) {
                         final imageUrl = _imageUrl ?? '';
-                        if (!isValidImageUrl(imageUrl)){
+                        if (!isValidImageUrl(imageUrl)) {
                           return 'Informe uma URL de imagem válida!';
                         }
                         return null;
-                      }, 
+                      },
                     ),
                   ),
                   Container(
@@ -174,10 +212,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                     alignment: Alignment.center,
                     child: _imageUrlController.text.isEmpty
                         ? Text('Informe a URL')
-                        : FittedBox(
-                            child: Image.network(_imageUrlController.text),
-                            fit: BoxFit.cover,
-                          ),
+                        : Image.network(_imageUrlController.text),
                   )
                 ],
               ),
