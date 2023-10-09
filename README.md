@@ -40,3 +40,10 @@ Curso iniciado em 10 de agosto de 2023.
     - **Iniciado em**: 27/09/2023
     - **Completado em**: 30/09/2023
     - **Comandos presentes nesse projeto**: Sem novos comandos.
+
+> **Projeto 6 - Chat**
+
+* Projeto Greate Places é um aplicativo para efetuar a comunicação entre ao menos 2 pessoas por uma estrutura simples de chat de texto, semelhante ao Whatsapp. 
+    - **Iniciado em**: 02/10/2023
+    - **Completado em**: 07/10/2023
+    - **Comandos presentes nesse projeto**: 
