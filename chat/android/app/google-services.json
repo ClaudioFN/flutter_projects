@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "524688908367",
+    "project_id": "chat-30863",
+    "storage_bucket": "chat-30863.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524688908367:android:93fb32223c8342c18c0a3a",
+        "android_client_info": {
+          "package_name": "br.com.claudio.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0BkLeRovm8AwLF6DpTL39gSkPDH75Bzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
