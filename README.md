@@ -46,4 +46,25 @@ Curso iniciado em 10 de agosto de 2023.
 * Projeto Greate Places é um aplicativo para efetuar a comunicação entre ao menos 2 pessoas por uma estrutura simples de chat de texto, semelhante ao Whatsapp. 
     - **Iniciado em**: 02/10/2023
     - **Completado em**: 07/10/2023
-    - **Comandos presentes nesse projeto**: 
+    - **Comandos presentes nesse projeto**: Sem novos comandos.
+
+> **Projeto 7 - Mine Field**
+
+* Projeto Mine Field é um aplicativo do jogo de Campo Minado com as etapas de seleção dos campos, explosão e fim de jogo por ter encontrado uma bomba, marcação de campos com bomba, vencer jogo ao liberar todos os campos sem minas e marcar os que tem minas, reiniciar o jogo. 
+    - **Iniciado em**: 10/10/2023
+    - **Completado em**: 11/10/2023
+    - **Comandos presentes nesse projeto**: Sem novos comandos.
+
+> **Projeto 8 - Calculator**
+
+* Projeto Calculator é um aplicativo para efetuar contas básicas de soma, subtração, divisão, multiplicação e módulo com limpeza de números e uso de números decimais. 
+    - **Iniciado em**: 11/10/2023
+    - **Completado em**: 13/10/2023
+    - **Comandos presentes nesse projeto**: `<-Executar o comando dentro da pasta do projeto-> <-PASTA DO LOCAL DA keytool-> -genkey -v -keystore <- PASTA ONDE ESTÁ O ARQUIVO upload-keystore.jks-> -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload` => esse comando serve para fins de criação de arquivo para publicação de aplicativos em loja do Android.
+
+> **Projeto 9 - Projeto Pomodoro**
+
+* Projeto Pomodoro é um aplicativo para cronometrar tempos com a finalidade de delimitar o tempo de trabalho e o tempo de descanso para tratar do uso de funcionalidades do MobX.
+    - **Iniciado em**: 13/10/2023
+    - **Completado em**: 14/10/2023
+    - **Comandos presentes nesse projeto**: `flutter pub run build_runner watch` - para monitoramente e criação dos arquivos MobX.
