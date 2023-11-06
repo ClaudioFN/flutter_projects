@@ -1,5 +1,5 @@
 # flutter_projects
-### Repositório para guardar códigos elaborados durante curso Udemy Aprenda Flutter e Desenvolva Apps Para Android <img src="https://lh3.googleusercontent.com/TUZ68qCRW7rqu4AYQAfv5FZPjKBZ3qFjDftCbJiHUTuTZBoWRlMvr2jNsLApFZfBwgx5qopDDJVXoj9iaopQQp9K2FiXuOcN3g3bgpn0T_w_YjNXdQ" alt="android" width="20" height="10"> e iOS <img src="https://www.apptuts.net/wp-content/uploads/2019/09/destaque-4.jpg" alt="android" width="20" height="10">  e outras atividades.
+### Repositório para guardar códigos elaborados durante curso Udemy Aprenda Flutter e Desenvolva Apps Para Android <img src="https://lh3.googleusercontent.com/TUZ68qCRW7rqu4AYQAfv5FZPjKBZ3qFjDftCbJiHUTuTZBoWRlMvr2jNsLApFZfBwgx5qopDDJVXoj9iaopQQp9K2FiXuOcN3g3bgpn0T_w_YjNXdQ" alt="android" width="20" height="10"> e iOS <img src="https://www.apptuts.net/wp-content/uploads/2019/09/destaque-4.jpg" alt="android" width="20" height="10"> e outras atividades.
 
 Curso iniciado em 10 de agosto de 2023.
 Curso completado em 15 de outubro de 2023.
@@ -15,6 +15,7 @@ Curso completado em 15 de outubro de 2023.
 <p align="center">
     <img src="https://github.com/ClaudioFN/flutter_projects/blob/main/GIFs/App01-Perguntas.gif" alt="Projeto 1" width="180" height="340">
 </p>
+
 > **Projeto 2 - Expenses**
 
 * Projeto Expenses é um aplicativo destinado ao controle de gastos financeiros, permitindo o cadastro de valores gastos com o nome desse gasto.
